@@ -32,8 +32,8 @@ mongoose.connect(
   }
 );
 
-app.use("/auth", authRoute);
-app.use("/admin", adminRoute);
+app.use("/api/auth", authRoute);
+app.use("/api/admin", adminRoute);
 
 app.listen(3001, () => {
   console.log("Port running on 3001");

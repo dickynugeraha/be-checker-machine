@@ -82,9 +82,9 @@ exports.register = async (req, res) => {
       message: "successfully created user",
       token: token,
       user: {
-        username: newUser.username,
-        name: newUser.name,
-        role: newUser.role,
+        username: username,
+        name: name,
+        role: role,
       },
     });
   } catch (error) {

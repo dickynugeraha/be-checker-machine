@@ -24,3 +24,5 @@ router.put("/operator", isAuth, AdminController.putEditOperator);
 
 // delete data operator
 router.delete("/operator", isAuth, AdminController.deleteOperator);
+
+module.exports = router;
