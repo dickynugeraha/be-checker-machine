@@ -17,7 +17,7 @@ const DocMachine = mongoose.Schema({
   alsin_name: reqString,
   brand: reqString,
   examiner: reqString,
-  tim: reqString,
+  team: reqString,
   status: {
     type: String,
     require: true,

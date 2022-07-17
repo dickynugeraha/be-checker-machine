@@ -9,11 +9,13 @@ exports.addNewDocument = async (req, res) => {
     alsin_name,
     brand,
     examiner,
-    tim,
+    team,
     status,
   } = req.body;
 
-  const document_file = req.file;
+  const document_file = req.file.filename;
+
+  const fileUrl = `http://localhost:3002/uploads/${document_file}`;
 
   function makeRandString(length) {
     let result = "";
@@ -38,8 +40,8 @@ exports.addNewDocument = async (req, res) => {
       alsin_name,
       brand,
       examiner,
-      tim,
-      document_file: "filename",
+      team,
+      document_file: fileUrl,
       status,
     });
 
@@ -111,14 +113,21 @@ exports.updateDocument = async (req, res) => {
     alsin_name,
     brand,
     examiner,
-    tim,
+    team,
     status,
   } = req.body;
 
-  const document_file = req.file;
-
   try {
     const document = await DocMachine.findOne({ _id: docId });
+
+    let fileUrl;
+
+    if (!req.file) {
+      fileUrl = document.document_file;
+    } else {
+      const document_file = req.file.filename;
+      fileUrl = `http://localhost:3002/uploads/${document_file}`;
+    }
 
     document.document_number = document_number
       ? document_number
@@ -129,11 +138,9 @@ exports.updateDocument = async (req, res) => {
     document.alsin_name = alsin_name ? alsin_name : document.alsin_name;
     document.brand = brand ? brand : document.brand;
     document.examiner = examiner ? examiner : document.examiner;
-    document.tim = tim ? tim : document.tim;
+    document.team = team ? team : document.team;
     document.status = status ? status : document.status;
-    document.document_file = document_file
-      ? document_file
-      : document.document_file;
+    document.document_file = fileUrl;
 
     await document.save();
 

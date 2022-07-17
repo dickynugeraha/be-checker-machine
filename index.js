@@ -3,6 +3,8 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
+const multer = require("multer");
+const path = require("path");
 
 const authRoute = require("./routes/Auth");
 const adminRoute = require("./routes/Admin");
@@ -56,9 +58,9 @@ const filterImage = (req, file, cb) => {
   }
 };
 app.use(
-  multer({ fileFilter: filterImage, storage: fileStorage }).single("image")
+  multer({ fileFilter: filterImage, storage: fileStorage }).single("file")
 );
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/document_file", express.static(path.join(__dirname, "uploads")));
 
 app.use("/api/auth", authRoute);
 app.use("/api/admin", adminRoute);
