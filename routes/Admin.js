@@ -4,25 +4,24 @@ const isAuth = require("../middleware/isAuth");
 
 // USER
 
-// dapetin data 1 user
+// dapetin 1 user
 router.get("/user", isAuth, AdminController.getSingleUser);
 
 // update user
 router.put("/user", isAuth, AdminController.putEditUser);
 
-// seluruh data operator
+// seluruh operator
 router.get("/operators", isAuth, AdminController.getAllOperator);
 
-// nambah operator
-// pake endpoint register role nya operator
+// nambah operator, pake endpoint register role nya operator
 
-// data operator buat di edit
+// operator buat di edit
 router.post("/get-operator", isAuth, AdminController.postGetOperator);
 
-// update data operator
+// update operator
 router.put("/operator", isAuth, AdminController.putEditOperator);
 
-// delete data operator
+// delete operator
 router.delete("/operator", isAuth, AdminController.deleteOperator);
 
 module.exports = router;

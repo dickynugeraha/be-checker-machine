@@ -5,8 +5,9 @@ const reqString = {
   require: true,
 };
 
-const CheckMachine = mongoose.Schema({
-  number: reqString,
+const DocMachine = mongoose.Schema({
+  document_number: reqString,
+  track_code: reqString,
   date_check: {
     type: Date,
     default: Date.now,
@@ -17,7 +18,12 @@ const CheckMachine = mongoose.Schema({
   brand: reqString,
   examiner: reqString,
   tim: reqString,
-  status: reqString,
+  status: {
+    type: String,
+    require: true,
+    default: "Belum Diuji",
+  },
+  document_file: reqString,
 });
 
-module.exports = mongoose.model("checkMachine", CheckMachine);
+module.exports = mongoose.model("docMachine", DocMachine);

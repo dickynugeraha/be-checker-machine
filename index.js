@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 
 const authRoute = require("./routes/Auth");
 const adminRoute = require("./routes/Admin");
+const docMachineRoute = require("./routes/DocMachine");
 
 // Development
 app.use(express.json());
@@ -32,8 +33,36 @@ mongoose.connect(
   }
 );
 
+// configure uploading
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, "uploads"));
+  },
+  filename: (req, file, cb) => {
+    cb(
+      null,
+      new Date().toISOString().split(":")[0] + "_" + file.originalname.trim()
+    );
+  },
+});
+const filterImage = (req, file, cb) => {
+  if (
+    file.mimetype === "application/msword" ||
+    file.mimetype === "application/pdf"
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+app.use(
+  multer({ fileFilter: filterImage, storage: fileStorage }).single("image")
+);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 app.use("/api/auth", authRoute);
 app.use("/api/admin", adminRoute);
+app.use("/api/doc-machine", docMachineRoute);
 
 app.listen(3001, () => {
   console.log("Port running on 3001");

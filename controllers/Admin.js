@@ -55,7 +55,7 @@ exports.putEditUser = async (req, res) => {
 
 exports.getAllOperator = async (req, res) => {
   try {
-    const operators = await User.find({ role: operators });
+    const operators = await User.find({ role: "operator" });
 
     res.status(200).json({
       message: "Successfully fetch all operators",
